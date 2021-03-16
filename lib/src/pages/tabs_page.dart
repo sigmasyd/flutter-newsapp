@@ -32,8 +32,17 @@ class _Navegacion extends StatelessWidget {
       items: [
         // title property is deprecated, we are use label instead that is String no Text(like was with title)
         BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline), label: 'Para tí'),
-        BottomNavigationBarItem(icon: Icon(Icons.public), label: 'Encabezados')
+          icon: Icon(Icons.person_outline), 
+          label: 'Para tí'
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.public), 
+          label: 'Encabezados'
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.share),
+          label: 'Compartir'
+        )
       ],
     );
   }
@@ -52,7 +61,8 @@ class _Paginas extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         Container(color: Colors.red),
-        Container(color: Colors.green)
+        Container(color: Colors.green),
+        Container(color: Colors.blueAccent),
       ],
     );
   }
