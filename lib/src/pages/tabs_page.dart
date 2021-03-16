@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsapp/src/services/news_service.dart';
 import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
@@ -25,6 +26,8 @@ class _Navegacion extends StatelessWidget {
     // la ventaja es que ahora cuando se actualice la ventana actual, se va a redibujar los widgets
     // que se necesite
     final navegacionModel = Provider.of<_NavegacionModel>(context);
+    // basta con referenciarlo en algun lado (aunque no se use) para que se invoque
+    //final newsServie = Provider.of<NewsService>(context); // solo con fines de pruebas
 
     return BottomNavigationBar(
       currentIndex: navegacionModel.paginaActual, // seleccionar current tab
@@ -32,17 +35,9 @@ class _Navegacion extends StatelessWidget {
       items: [
         // title property is deprecated, we are use label instead that is String no Text(like was with title)
         BottomNavigationBarItem(
-          icon: Icon(Icons.person_outline), 
-          label: 'Para tí'
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.public), 
-          label: 'Encabezados'
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.share),
-          label: 'Compartir'
-        )
+            icon: Icon(Icons.person_outline), label: 'Para tí'),
+        BottomNavigationBarItem(icon: Icon(Icons.public), label: 'Encabezados'),
+        BottomNavigationBarItem(icon: Icon(Icons.share), label: 'Compartir')
       ],
     );
   }
@@ -78,7 +73,8 @@ class _NavegacionModel with ChangeNotifier {
 
   set paginaActual(int valor) {
     this._paginaActual = valor;
-    _pageController.animateToPage(valor, duration: Duration(milliseconds: 250), curve: Curves.easeOut);
+    _pageController.animateToPage(valor,
+        duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     // notificar a todos los widgets que estan pendientes de la página actual
     // para que se redibujen si es necesario..
     // se lo hace con ChangeNotifier(clase) y metodo notifyListeners()
