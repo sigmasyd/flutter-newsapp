@@ -42,7 +42,10 @@ class _Navegacion extends StatelessWidget {
 class _Paginas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final navegacionModel = Provider.of<_NavegacionModel>(context);
     return PageView(
+      // controller
+      controller: navegacionModel.pageController,
       // Para evitar se muestre la curvatura cuando no hay mas páginas
       //physics: BouncingScrollPhysics(),
       // se bloquea el slide por parte del usuario para forzar que utilice las tabs
@@ -58,14 +61,20 @@ class _Paginas extends StatelessWidget {
 // clase modelo que implementara el provider
 class _NavegacionModel with ChangeNotifier {
   int _paginaActual = 0;
+  // para usarlo como referencia
+  PageController _pageController = new PageController();
 
   int get paginaActual => this._paginaActual;
 
   set paginaActual(int valor) {
     this._paginaActual = valor;
+    _pageController.animateToPage(valor, duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     // notificar a todos los widgets que estan pendientes de la página actual
     // para que se redibujen si es necesario..
     // se lo hace con ChangeNotifier(clase) y metodo notifyListeners()
     notifyListeners();
   }
+
+  // para que pueda controlar las paginas o page view
+  PageController get pageController => this._pageController;
 }
