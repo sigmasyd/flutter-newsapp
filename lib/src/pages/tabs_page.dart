@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:newsapp/src/services/news_service.dart';
+import 'package:newsapp/src/pages/tab1_page.dart';
 import 'package:provider/provider.dart';
 
 class TabsPage extends StatelessWidget {
@@ -55,7 +55,7 @@ class _Paginas extends StatelessWidget {
       // se bloquea el slide por parte del usuario para forzar que utilice las tabs
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Container(color: Colors.red),
+        Tab1Page(),
         Container(color: Colors.green),
         Container(color: Colors.blueAccent),
       ],
