@@ -9,7 +9,7 @@ final _APIKEY = '7c1ea2687f0f4c1794121eff4f1ab80e';
 
 class NewsService with ChangeNotifier {
   List<Article> headlines = [];
-  String _selectedCategory = 'business';
+  String _selectedCategory = 'general';
   List<Category> categories = [
     Category(FontAwesomeIcons.building, 'business'),
     Category(FontAwesomeIcons.tv, 'entertainment'),
@@ -28,6 +28,7 @@ class NewsService with ChangeNotifier {
       this.categoryArticles[item.name] = new List();
       //this.categoryArticles[item.name] = List.empty();
     });
+    this.getArticlesByCategory(this._selectedCategory);
   }
 
   get selectedCategory => this._selectedCategory;
@@ -36,8 +37,15 @@ class NewsService with ChangeNotifier {
     this._selectedCategory = category;
     this.getArticlesByCategory(category);
 
+    print(category);
+
     notifyListeners();
   }
+
+  // permite obtener la lista de articulos almacenadas en el array categoryArticles con la categoria seleccionada
+  // como indice
+  List<Article> get getArticulosCategoriaSeleccionada =>
+      this.categoryArticles[this.selectedCategory];
 
   getTopHeadlines() async {
     //print('Cargando healines...');
@@ -49,8 +57,10 @@ class NewsService with ChangeNotifier {
     notifyListeners();
   }
 
+  // fetch de articulos en base a la categoria seleccionada
+  // genera un arreglo categoryArticles con la lista de articulos
   getArticlesByCategory(String category) async {
-    if(this.categoryArticles[category].length>0){
+    if (this.categoryArticles[category].length > 0) {
       return this.categoryArticles[category];
     }
     final url =
