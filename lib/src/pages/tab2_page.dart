@@ -50,6 +50,9 @@ class _CategoryButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print("${category.name}");
+        // el elemento no debe redibujarse, para ello listen: false
+        final newsService = Provider.of<NewsService>(context, listen: false);
+        newsService.selectedCategory = category.name;
       },
       child: Container(
         width: 40,
